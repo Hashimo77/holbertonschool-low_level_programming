@@ -1,25 +1,27 @@
 #include "main.h"
 
 /**
- * test_islower - tests the _islower function
+ * test_isalpha - test the _isalpha function
  * Return: void
  */
-void test_islower(void)
+void test_isalpha(void)
 {
 	int r;
 	int n = 108; /* ASCII for 'l' */
 
-	r = _islower('H');
+	r = _isalpha('H');
 	_putchar(r + '0');
-	r = _islower('o');
+	r = _isalpha('o');
 	_putchar(r + '0');
-	r = _islower(n);
+	r = _isalpha(n);
+	_putchar(r + '0');
+	r = _isalpha(';');
 	_putchar(r + '0');
 	_putchar('\n');
 }
 
 int main(void)
 {
-	test_islower();
+	test_isalpha();
 	return (0);
 }
