@@ -1,15 +1,14 @@
 #include "main.h"
 
 /**
- * print_last_digit - prints the last digit of a number
- * @n: the number to process
- * Return: value of the last digit
+ * print_last_digit - prints last digit of number
+ * @n: number to process
+ * Return: value of last digit
  */
 int print_last_digit(int n)
 {
-	int last;
+	int last = n % 10;
 
-	last = n % 10;
 	if (last < 0)
 		last = -last;
 
