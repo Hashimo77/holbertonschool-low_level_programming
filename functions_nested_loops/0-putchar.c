@@ -1,9 +1,7 @@
-#include <stdio.h>
-
-int _putchar(char c);
+#include "main.h"
 
 /**
- * main - Prints _putchar followed by new line
+ * main - prints _putchar
  * Return: Always 0 (Success)
  */
 int main(void)
