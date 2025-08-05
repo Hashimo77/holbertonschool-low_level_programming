@@ -1,24 +1,17 @@
-# 0x04. C - More functions, more nested loops
+# More Functions, More Nested Loops
 
-## 0-isupper.c
+This project is part of the Holberton School curriculum.
 
-This file contains a function that checks for uppercase characters.
+## Tasks
+- Check uppercase characters
+- Check digits
+- Multiplication functions
 
-### Function Prototype
-`int _isupper(int c);`
-
-### Description
-Returns 1 if `c` is uppercase
-Returns 0 otherwise
-
-### Compilation
-```bash
-gcc -Wall -pedantic -Werror -Wextra -std=gnu89 0-main.c 0-isupper.c -o 0-isuper
+## Compilation
+Use the following command:
+```
+gcc -Wall -pedantic -Werror -Wextra -std=gnu89 <files> -o <output>
 ```
 
-### Example Usage
-```bash
-./0-isuper
-A: 1
-a: 0
-```
+## Author
+Your Name
