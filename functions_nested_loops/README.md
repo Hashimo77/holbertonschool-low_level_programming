@@ -1,22 +1,22 @@
-# More Functions and Nested Loops
+# 0x04. C - More functions, more nested loops
 
-## Project Requirements
+## 0-isupper.c
 
-Write a function that checks for uppercase character.
+This file contains a function that checks for uppercase characters.
 
-- Prototype: `int _isupper(int c);`
-- Returns 1 if c is uppercase
-- Returns 0 otherwise
+### Function Prototype
+`int _isupper(int c);`
 
-## Compilation
+### Description
+Returns 1 if `c` is uppercase
+Returns 0 otherwise
 
-Compile with:
+### Compilation
 ```bash
 gcc -Wall -pedantic -Werror -Wextra -std=gnu89 0-main.c 0-isupper.c -o 0-isuper
 ```
 
-## Example Usage
-
+### Example Usage
 ```bash
 ./0-isuper
 A: 1
