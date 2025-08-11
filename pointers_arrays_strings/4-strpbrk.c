@@ -2,7 +2,8 @@
 #include <stddef.h> /* NULL üçün */
 
 /**
- * _strpbrk - locates the first occurrence in the string s of any byte in accept
+ * _strpbrk - locates the first occurrence in the string s of any byte
+ * in accept
  * @s: string to search
  * @accept: string containing bytes to match
  *
@@ -24,3 +25,4 @@ char *_strpbrk(char *s, char *accept)
 
 	return (NULL);
 }
+
