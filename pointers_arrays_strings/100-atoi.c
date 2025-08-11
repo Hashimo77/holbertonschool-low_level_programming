@@ -2,31 +2,41 @@
 
 /**
  * _atoi - converts a string to an integer
- * @s: the string to convert
+ * @s: string to convert
  *
  * Return: the integer representation of the string
  */
 int _atoi(char *s)
 {
-	int i = 0, sign = 1, num_started = 0;
-	unsigned int num = 0;
+	int i = 0, sign = 1, result = 0, found_digit = 0;
 
+	/* Skip all characters until first digit or sign */
 	while (s[i] != '\0')
 	{
 		if (s[i] == '-')
 			sign *= -1;
-
-		if (s[i] >= '0' && s[i] <= '9')
+		else if (s[i] == '+')
+			; /* ignore plus signs */
+		else if (s[i] >= '0' && s[i] <= '9')
 		{
-			num_started = 1;
-			num = num * 10 + (s[i] - '0');
-		}
-		else if (num_started)
+			found_digit = 1;
 			break;
+		}
 		i++;
 	}
-	return (sign * (int)num);
+
+	if (!found_digit)
+		return (0);
+
+	while (s[i] >= '0' && s[i] <= '9')
+	{
+		result = result * 10 + (s[i] - '0');
+		i++;
+	}
+
+	return (result * sign);
 }
+
 
 
 
