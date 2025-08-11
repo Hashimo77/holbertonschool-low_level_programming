@@ -1,45 +1,53 @@
 #include "main.h"
 
 /**
- * _atoi - convert string to integer
- * @s: input string
+ * _atoi - converts a string to an integer
+ * @s: pointer to the string to convert
  *
- * Return: integer value
+ * Return: the integer converted from the string
  */
 int _atoi(char *s)
 {
-    unsigned int result = 0;
-    int sign = 1;
-    int started = 0;
+	int sign = 1;
+	unsigned int result = 0;
+	int started = 0;
 
-    while (*s)
-    {
-        if (*s == '-')
-            sign *= -1;
-        else if (*s == '+' && !started)
-            ;
-        else if (*s >= '0' && *s <= '9')
-        {
-            started = 1;
+	while (*s)
+	{
+		if (*s == '-')
+		{
+			if (!started)
+				sign *= -1;
+		}
+		else if (*s == '+')
+		{
+			if (!started)
+				;
+		}
+		else if (*s >= '0' && *s <= '9')
+		{
+			started = 1;
 
-            if (result > (unsigned int)(2147483647 / 10) ||
-                (result == (unsigned int)(2147483647 / 10) && (*s - '0') > 7))
-            {
-                /* overflow occurred */
-                if (sign == 1)
-                    return (2147483647);
-                else
-                    return (-2147483648);
-            }
+			/* Overflow yoxlaması */
+			if (result > (unsigned int)(2147483647 / 10) ||
+				(result == (unsigned int)(2147483647 / 10) && (*s - '0') > 7))
+			{
+				if (sign == 1)
+					return (2147483647);
+				else
+					return (-2147483648);
+			}
 
-            result = result * 10 + (*s - '0');
-        }
-        else if (started)
-            break;
-        s++;
-    }
+			result = result * 10 + (*s - '0');
+		}
+		else if (started)
+			break;
 
-    return (sign * (int)result);
+		s++;
+	}
+
+	return (sign * (int)result);
 }
+
 
 
