@@ -1,14 +1,15 @@
 #include <stdio.h>
 
 /**
- * main - Prints the program name
- * @argc: number of command line arguments
- * @argv: array of command line arguments
- *
- * Return: Always 0 (Success)
+ * main - prints the name of the program
+ * @argc: argument count
+ * @argv: argument vector
+ * Return: 0
  */
-int main(int argc __attribute__((unused)), char *argv[])
+int main(int argc, char *argv[])
 {
+    (void)argc; /* argc istifadə olunmur, ona görə kompilyator xəbərdarlığı üçün */
     printf("%s\n", argv[0]);
     return (0);
 }
+
