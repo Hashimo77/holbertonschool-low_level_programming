@@ -1,47 +1,43 @@
 #include <stdlib.h>
-#include <string.h>
-#include "dog.h"
-
-/**
- * new_dog - creates a new dog
- * @name: name of the dog
- * @age: age of the dog
- * @owner: owner of the dog
+#include "dog.h"/**
+ * str_copy - Bir string'in kopyasını oluşturur
+ * @str: Kopyalanacak string
  *
- * Return: pointer to the new dog (dog_t), or NULL if function fails
+ * Return: Yeni string'in adresi veya NULL
+ */
+char *str_copy(char *str)
+{
+	char *copy;
+	int len = 0, i;	if (str == NULL)
+		return (NULL);	while (str[len] != '\0')
+		len++;	copy = malloc(len + 1);
+	if (copy == NULL)
+		return (NULL);	for (i = 0; i <= len; i++)
+		copy[i] = str[i];	return (copy);
+}/**
+ * new_dog - Yeni bir dog_t oluşturur ve kopyalarını saklar
+ * @name: Köpeğin adı
+ * @age: Köpeğin yaşı
+ * @owner: Köpeğin sahibi
  *
- * Description: Allocates memory for a new dog and stores copies
- * of name and owner strings using strdup. Returns NULL if
- * memory allocation fails.
+ * Return: Başarılıysa yeni dog_t işaretçisi, başarısızsa NULL
  */
 dog_t *new_dog(char *name, float age, char *owner)
 {
-	dog_t *d;
-
-	if (name == NULL || owner == NULL)
-		return (NULL);
-
-	d = malloc(sizeof(dog_t));
+	dog_t *d;	d = malloc(sizeof(dog_t));
 	if (d == NULL)
-		return (NULL);
-
-	d->name = strdup(name);
-	if (d->name == NULL)
+		return (NULL);	d->name = str_copy(name);
+	if (name != NULL && d->name == NULL)
 	{
 		free(d);
 		return (NULL);
-	}
-
-	d->owner = strdup(owner);
-	if (d->owner == NULL)
+	}	d->owner = str_copy(owner);
+	if (owner != NULL && d->owner == NULL)
 	{
-		free(d->name);
+		if (d->name != NULL)
+			free(d->name);
 		free(d);
 		return (NULL);
-	}
-
-	d->age = age;
-
+	}	d->age = age;
 	return (d);
 }
-
