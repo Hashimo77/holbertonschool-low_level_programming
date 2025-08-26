@@ -1,9 +1,10 @@
-#include "function_pointers.h"
+#include <stddef.h>
+#include "main.h"
 
 /**
- * print_name - Bir adı göstərmək üçün funksiya
+ * print_name - Verilən adı çap edir
  * @name: çap olunacaq ad
- * @f: funksiyaya göstərici (adı necə çap edəcəyini müəyyən edir)
+ * @f: funksiyaya göstərici (adı necə çap etməyi göstərir)
  *
  * Return: Heç nə qaytarmır
  */
