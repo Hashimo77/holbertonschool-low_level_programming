@@ -2,78 +2,65 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
-
-#define BUF_SIZE 1024
+#include <sys/stat.h>
 
 /**
- * error_exit - prints an error message and exits with a specific code
- * @code: exit code
- * @file: filename or fd (if needed)
+ * error_exit - xətaları çap edib proqramı dayandırır
+ * @code: çıxış kodu
+ * @msg: mesaj formatı
+ * @arg: arqument (məsələn fayl adı və ya fd)
  */
-void error_exit(int code, const char *file, int fd)
+void error_exit(int code, const char *msg, const char *arg)
 {
-	if (code == 97)
-		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
-	else if (code == 98)
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file);
-	else if (code == 99)
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file);
-	else if (code == 100)
-		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
-
+	dprintf(STDERR_FILENO, msg, arg);
 	exit(code);
 }
 
 /**
- * main - copies the content of a file to another file
- * @ac: argument count
- * @av: argument vector
+ * main - faylı kopyalayır
+ * @argc: arqumentlərin sayı
+ * @argv: arqumentlər massivi
  *
- * Return: 0 on success
+ * Return: 0 uğurlu olduqda
  */
-int main(int ac, char **av)
+int main(int argc, char *argv[])
 {
 	int fd_from, fd_to;
 	ssize_t r, w;
-	char buffer[BUF_SIZE];
+	char buffer[1024];
 
-	if (ac != 3)
-		error_exit(97, NULL, 0);
+	if (argc != 3)
+		error_exit(97, "Usage: cp file_from file_to\n", "");
 
-	fd_from = open(av[1], O_RDONLY);
+	fd_from = open(argv[1], O_RDONLY);
 	if (fd_from == -1)
-		error_exit(98, av[1], 0);
+		error_exit(98, "Error: Can't read from file %s\n", argv[1]);
 
-	fd_to = open(av[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	fd_to = open(argv[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
 	if (fd_to == -1)
-	{
-		close(fd_from);
-		error_exit(99, av[2], 0);
-	}
+		error_exit(99, "Error: Can't write to %s\n", argv[2]);
 
-	while ((r = read(fd_from, buffer, BUF_SIZE)) > 0)
+	while ((r = read(fd_from, buffer, 1024)) > 0)
 	{
 		w = write(fd_to, buffer, r);
-		if (w != r)
-		{
-			close(fd_from);
-			close(fd_to);
-			error_exit(99, av[2], 0);
-		}
+		if (w == -1 || w != r)
+			error_exit(99, "Error: Can't write to %s\n", argv[2]);
 	}
 
 	if (r == -1)
-	{
-		close(fd_from);
-		close(fd_to);
-		error_exit(98, av[1], 0);
-	}
+		error_exit(98, "Error: Can't read from file %s\n", argv[1]);
 
 	if (close(fd_from) == -1)
-		error_exit(100, NULL, fd_from);
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_from);
+		exit(100);
+	}
 
 	if (close(fd_to) == -1)
-		error_exit(100, NULL, fd_to);
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd_to);
+		exit(100);
+	}
 
 	return (0);
 }
